@@ -1,17 +1,24 @@
 let h2 = document.querySelector('h2');
 let btn = document.querySelector('button');
 let boxes = document.getElementsByClassName('box');
-
+let currentPlayer;
 let container = document.querySelector('.container');
-console.log(container);
+
+let playerOne = {
+	token: 'x'
+};
+
+let playerTwo = {
+	token: 'o'
+};
 
 h2.style.display = 'none';
 
 btn.addEventListener('click', function() {
-	play();
+	startGame();
 });
 
-function play() {
+function startGame() {
 	container.classList.add('small');
 	setTimeout(function() {
 		container.classList.remove('small');
@@ -23,18 +30,74 @@ function play() {
 			boxes[i].classList.remove('no-hover');
 		}
 	}, 1400);
+	currentPlayer = playerOne;
 }
 
-/* pseudocode
-start:
+function makeMouseEnterEvent() {
+	for (let i = 0; i < boxes.length; i++) {
+		boxes[i].addEventListener('mouseenter', function() {
+			checkBoxToken();
+		});
+	}
+}
 
-h2 .style.display = 'none'
+function makeMouseLeaveEvent() {
+	for (let i = 0; i < boxes.length; i++) {
+		boxes[i].addEventListener('mouseleave', function() {
+			leaveBox();
+		});
+	}
+}
 
-van beginscherm naar start van spel
+function addClickEventSetToken() {
+	for (let i = 0; i < boxes.length; i++) {
+		boxes[i].addEventListener('click', function() {
+			setToken();
+		});
+	}
+}
 
-- button moet weg (btn.style.display='none')
-- player one moet in beeld (h2.style.display = block)
-- begingrid moet leeg tevoorschijn komen
+makeMouseEnterEvent();
+makeMouseLeaveEvent();
+addClickEventSetToken();
+
+function checkBoxToken() {
+	if (event.target.innerHTML === '') {
+		// console.log(event.target.style.color);
+		event.target.innerHTML = currentPlayer.token;
+		event.target.style.color = 'black';
+		console.log(event.target.style.color);
+	} else {
+		return;
+	}
+}
+
+function leaveBox() {
+	if (event.target.style.color === 'black') {
+		console.log(event.target.style.color);
+		event.target.innerHTML = '';
+	} else {
+		return;
+	}
+}
+
+/*als clicked: als inner html = '', innerhtml = currentplayer.token, color: iets minder wit en geen hover effect > no-hover class toepassen
+else return; */
+
+function setToken() {
+	let element = event.target;
+	if (element.style.color === 'black') {
+		element.innerHTML = currentPlayer.token;
+		element.style.color = '#FFFFFE';
+		element.classList.remove('hove');
+		element.classList.add('no-hover');
+		currentPlayer === playerOne ? (currentPlayer = playerTwo) : (currentPlayer = playerOne);
+	} else {
+		return;
+	}
+}
+
+/*
 
 daarna
 - beurt is aan playerone
@@ -54,4 +117,14 @@ let playerOne = {
 let playerTwo = {
     token: 'o',
 }
+*/
+
+/*
+
+als clicked: als inner html = '', innerhtml = currentplayer.token, color: iets minder wit en geen hover effect > no-hover class toepassen
+else return;
+
+bij mouse leave > als color iets minder wit > return
+
+
 */
