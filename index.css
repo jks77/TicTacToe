@@ -18,6 +18,12 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	transition: all 1200ms ease-out;
+	transition-delay: 100ms;
+}
+
+.small {
+	transform: scale(0.4);
 }
 
 h1,
@@ -27,6 +33,10 @@ h2 {
 
 h1 {
 	margin-bottom: 30px;
+}
+
+h2 {
+	margin-top: 30px;
 }
 
 .container-grid {
@@ -47,9 +57,7 @@ h1 {
 	background-color: black;
 }
 
-.box-3,
-.box-5,
-.box-7 {
+.start {
 	color: black;
 	border: 2px solid black;
 	background-color: white;
@@ -91,4 +99,8 @@ button:hover {
 
 button:hover {
 	border: 6px double black;
+}
+
+.no-hover {
+	pointer-events: none;
 }
