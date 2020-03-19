@@ -1,0 +1,94 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: black;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.container {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+h1,
+h2 {
+	font-size: 48px;
+}
+
+h1 {
+	margin-bottom: 30px;
+}
+
+.container-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 80px);
+	grid-template-rows: repeat(3, 80px);
+	gap: 2px;
+	background-color: white;
+	border: 2px solid white;
+}
+
+.box {
+	transition: all 500ms ease;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 52px;
+	background-color: black;
+}
+
+.box-3,
+.box-5,
+.box-7 {
+	color: black;
+	border: 2px solid black;
+	background-color: white;
+}
+
+.black {
+	gap: 0;
+	grid-row-start: 4;
+	grid-column: 1 / span 3;
+	background-color: black;
+}
+
+button {
+	font-weight: bold;
+	height: 80px;
+	width: 248px;
+	margin-top: 40px;
+	grid-row-start: 5;
+	grid-column: 1 / span 3;
+	font-size: 48px;
+	color: white;
+	background-color: black;
+	border: 2px solid white;
+	transition: all 300ms ease;
+	outline: none;
+}
+
+.box:hover,
+button:hover {
+	cursor: pointer;
+	color: black;
+	border: 2px solid black;
+	background-color: white;
+}
+
+.box:hover {
+	color: black;
+}
+
+button:hover {
+	border: 6px double black;
+}
