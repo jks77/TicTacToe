@@ -26,6 +26,7 @@ let playerTwo = {
 	name: 'player two'
 };
 
+let draw;
 let gameEnded = false;
 
 // -------------------- einde variabelen-------------------
@@ -41,6 +42,7 @@ btn.addEventListener('click', function() {
 });
 
 function startGame() {
+	draw = 0;
 	currentPlayer = playerOne;
 	h2.innerHTML = currentPlayer.name;
 
@@ -108,24 +110,41 @@ function setToken() {
 	let element = event.target;
 	if (element.style.color === 'black') {
 		element.innerHTML = currentPlayer.token;
-		checkWinner();
-		if (!gameEnded) {
-			element.style.color = 'white';
-			element.classList.remove('hover');
-			element.classList.add('no-hover');
-			currentPlayer === playerOne ? (currentPlayer = playerTwo) : (currentPlayer = playerOne);
-			h2.innerHTML = currentPlayer.name;
-		} else {
-			for (let i = 0; i < boxes.length; i++) {
-				boxes[i].classList.add('no-hover');
-			}
-			setTimeout(function() {
-				h2.style.display = 'none';
-				btn.innerHTML = 'AGAIN?';
-				btn.style.display = 'block';
-			}, 2000);
-			gameEnded = false;
+	}
+	draw++;
+	console.log('draw =', draw);
+
+	checkWinner();
+	if (!gameEnded) {
+		element.style.color = 'white';
+		element.classList.remove('hover');
+		element.classList.add('no-hover');
+		currentPlayer === playerOne ? (currentPlayer = playerTwo) : (currentPlayer = playerOne);
+		h2.innerHTML = currentPlayer.name;
+	} else {
+		for (let i = 0; i < boxes.length; i++) {
+			boxes[i].classList.add('no-hover');
 		}
+		setTimeout(function() {
+			h2.style.display = 'none';
+			btn.innerHTML = 'AGAIN?';
+			btn.style.display = 'block';
+		}, 2000);
+		gameEnded = false;
+	}
+	if (draw === 9) {
+		h2.style.display = 'block';
+		h2.innerText = 'DRAW!!';
+		console.log(h2.innerText);
+		for (let i = 0; i < boxes.length; i++) {
+			boxes[i].classList.add('no-hover');
+		}
+		setTimeout(function() {
+			h2.style.display = 'none';
+			btn.innerHTML = 'AGAIN?';
+			btn.style.display = 'block';
+		}, 2000);
+		gameEnded = false;
 	}
 }
 
