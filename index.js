@@ -42,11 +42,12 @@ btn.addEventListener('click', function() {
 });
 
 function startGame() {
+	gameEnded = false;
 	draw = 0;
 	currentPlayer = playerOne;
 	h2.innerHTML = currentPlayer.name;
 
-	// voor het verdwijnen en weer verschijnen van het spelbord
+	// voor het verdwijnen van spelbord naar achtergrond en weer verschijnen
 	container.classList.add('small');
 	setTimeout(function() {
 		container.classList.remove('small');
@@ -57,7 +58,7 @@ function startGame() {
 			boxes[i].classList.add('hover');
 			boxes[i].classList.remove('start');
 			boxes[i].classList.remove('no-hover');
-			boxes[i].classList.remove('whenWon');
+			boxes[i].classList.remove('when-won');
 		}
 	}, 1400);
 }
@@ -121,7 +122,7 @@ function setToken() {
 		element.classList.add('no-hover');
 		currentPlayer === playerOne ? (currentPlayer = playerTwo) : (currentPlayer = playerOne);
 		h2.innerHTML = currentPlayer.name;
-	} else {
+	} else if (gameEnded) {
 		for (let i = 0; i < boxes.length; i++) {
 			boxes[i].classList.add('no-hover');
 		}
@@ -130,12 +131,10 @@ function setToken() {
 			btn.innerHTML = 'AGAIN?';
 			btn.style.display = 'block';
 		}, 2000);
-		gameEnded = false;
 	}
-	if (draw === 9) {
-		h2.style.display = 'block';
+
+	if (draw === 9 && !gameEnded) {
 		h2.innerText = 'DRAW!!';
-		console.log(h2.innerText);
 		for (let i = 0; i < boxes.length; i++) {
 			boxes[i].classList.add('no-hover');
 		}
@@ -155,11 +154,11 @@ function checkWinner() {
 		box2.innerHTML === currentPlayer.token &&
 		box3.innerHTML === currentPlayer.token
 	) {
-		box1.classList.add('whenWon');
+		box1.classList.add('when-won');
 		box1.style.color = '#000001';
-		box2.classList.add('whenWon');
+		box2.classList.add('when-won');
 		box2.style.color = '#000001';
-		box3.classList.add('whenWon');
+		box3.classList.add('when-won');
 		// voor mij onverklaarbare bug: als op 'black' zet, dan verdwijnt currentPlayer.token. Daarom #000001 van gemaakt en bij rest ook
 		box3.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
@@ -171,11 +170,11 @@ function checkWinner() {
 		box5.innerHTML === currentPlayer.token &&
 		box6.innerHTML === currentPlayer.token
 	) {
-		box4.classList.add('whenWon');
+		box4.classList.add('when-won');
 		box4.style.color = '#000001';
-		box5.classList.add('whenWon');
+		box5.classList.add('when-won');
 		box5.style.color = '#000001';
-		box6.classList.add('whenWon');
+		box6.classList.add('when-won');
 		box6.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
@@ -186,11 +185,11 @@ function checkWinner() {
 		box8.innerHTML === currentPlayer.token &&
 		box9.innerHTML === currentPlayer.token
 	) {
-		box7.classList.add('whenWon');
+		box7.classList.add('when-won');
 		box7.style.color = '#000001';
-		box8.classList.add('whenWon');
+		box8.classList.add('when-won');
 		box8.style.color = '#000001';
-		box9.classList.add('whenWon');
+		box9.classList.add('when-won');
 		box9.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
@@ -200,11 +199,11 @@ function checkWinner() {
 		box4.innerHTML === currentPlayer.token &&
 		box7.innerHTML === currentPlayer.token
 	) {
-		box1.classList.add('whenWon');
+		box1.classList.add('when-won');
 		box1.style.color = '#000001';
-		box4.classList.add('whenWon');
+		box4.classList.add('when-won');
 		box4.style.color = '#000001';
-		box7.classList.add('whenWon');
+		box7.classList.add('when-won');
 		box7.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
@@ -214,11 +213,11 @@ function checkWinner() {
 		box5.innerHTML === currentPlayer.token &&
 		box8.innerHTML === currentPlayer.token
 	) {
-		box2.classList.add('whenWon');
+		box2.classList.add('when-won');
 		box2.style.color = '#000001';
-		box5.classList.add('whenWon');
+		box5.classList.add('when-won');
 		box5.style.color = '#000001';
-		box8.classList.add('whenWon');
+		box8.classList.add('when-won');
 		box8.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
@@ -228,11 +227,11 @@ function checkWinner() {
 		box6.innerHTML === currentPlayer.token &&
 		box9.innerHTML === currentPlayer.token
 	) {
-		box3.classList.add('whenWon');
+		box3.classList.add('when-won');
 		box3.style.color = '#000001';
-		box6.classList.add('whenWon');
+		box6.classList.add('when-won');
 		box6.style.color = '#000001';
-		box9.classList.add('whenWon');
+		box9.classList.add('when-won');
 		box9.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
@@ -242,11 +241,11 @@ function checkWinner() {
 		box5.innerHTML === currentPlayer.token &&
 		box9.innerHTML === currentPlayer.token
 	) {
-		box1.classList.add('whenWon');
+		box1.classList.add('when-won');
 		box1.style.color = '#000001';
-		box5.classList.add('whenWon');
+		box5.classList.add('when-won');
 		box5.style.color = '#000001';
-		box9.classList.add('whenWon');
+		box9.classList.add('when-won');
 		box9.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
@@ -256,11 +255,11 @@ function checkWinner() {
 		box5.innerHTML === currentPlayer.token &&
 		box7.innerHTML === currentPlayer.token
 	) {
-		box3.classList.add('whenWon');
+		box3.classList.add('when-won');
 		box3.style.color = '#000001';
-		box5.classList.add('whenWon');
+		box5.classList.add('when-won');
 		box5.style.color = '#000001';
-		box7.classList.add('whenWon');
+		box7.classList.add('when-won');
 		box7.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
