@@ -1,9 +1,20 @@
 let h2 = document.querySelector('h2');
 let btn = document.querySelector('button');
-let boxes = document.getElementsByClassName('box');
-let currentPlayer;
 let container = document.querySelector('.container');
-let gameEnded = false;
+
+let boxes = document.getElementsByClassName('box');
+
+let box1 = boxes[0];
+let box2 = boxes[1];
+let box3 = boxes[2];
+let box4 = boxes[3];
+let box5 = boxes[4];
+let box6 = boxes[5];
+let box7 = boxes[6];
+let box8 = boxes[7];
+let box9 = boxes[8];
+
+let currentPlayer;
 
 let playerOne = {
 	token: 'x',
@@ -15,17 +26,25 @@ let playerTwo = {
 	name: 'player two'
 };
 
-h2.style.display = 'none';
+let gameEnded = false;
 
-btn.addEventListener('click', function() {
-	startGame();
-});
+// -------------------- einde variabelen-------------------
+
+h2.style.display = 'none';
 
 for (let i = 0; i < boxes.length; i++) {
 	boxes[i].classList.add('no-hover');
 }
 
+btn.addEventListener('click', function() {
+	startGame();
+});
+
 function startGame() {
+	currentPlayer = playerOne;
+	h2.innerHTML = currentPlayer.name;
+
+	// voor het verdwijnen en weer verschijnen van het spelbord
 	container.classList.add('small');
 	setTimeout(function() {
 		container.classList.remove('small');
@@ -33,11 +52,12 @@ function startGame() {
 		btn.style.display = 'none';
 		for (let i = 0; i < boxes.length; i++) {
 			boxes[i].innerHTML = '';
+			boxes[i].classList.add('hover');
 			boxes[i].classList.remove('start');
 			boxes[i].classList.remove('no-hover');
+			boxes[i].classList.remove('whenWon');
 		}
 	}, 1400);
-	currentPlayer = playerOne;
 }
 
 // functie om op elke box een mouseenter event te zetten om de styling te beheersen
@@ -99,114 +119,130 @@ function setToken() {
 			for (let i = 0; i < boxes.length; i++) {
 				boxes[i].classList.add('no-hover');
 			}
+			setTimeout(function() {
+				h2.style.display = 'none';
+				btn.innerHTML = 'AGAIN?';
+				btn.style.display = 'block';
+			}, 2000);
+			gameEnded = false;
 		}
 	}
 }
 
 function checkWinner() {
+	//winst bovenste horizontale rij
 	if (
-		boxes[0].innerHTML === currentPlayer.token &&
-		boxes[1].innerHTML === currentPlayer.token &&
-		boxes[2].innerHTML === currentPlayer.token
+		box1.innerHTML === currentPlayer.token &&
+		box2.innerHTML === currentPlayer.token &&
+		box3.innerHTML === currentPlayer.token
 	) {
-		boxes[0].classList.add('whenWon');
-		boxes[0].style.color = 'black';
-		boxes[1].classList.add('whenWon');
-		boxes[1].style.color = 'black';
-		boxes[2].classList.add('whenWon');
-		// voor mij onverklaarbare bug: als op 'black' zet, dan verdwijnt currentPlayer.token. Daarom #000001 van gemaakt
-		boxes[2].style.color = '#000001';
+		box1.classList.add('whenWon');
+		box1.style.color = '#000001';
+		box2.classList.add('whenWon');
+		box2.style.color = '#000001';
+		box3.classList.add('whenWon');
+		// voor mij onverklaarbare bug: als op 'black' zet, dan verdwijnt currentPlayer.token. Daarom #000001 van gemaakt en bij rest ook
+		box3.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+
+		//winst middelste horizontale rij
 	} else if (
-		boxes[3].innerHTML === currentPlayer.token &&
-		boxes[4].innerHTML === currentPlayer.token &&
-		boxes[5].innerHTML === currentPlayer.token
+		box4.innerHTML === currentPlayer.token &&
+		box5.innerHTML === currentPlayer.token &&
+		box6.innerHTML === currentPlayer.token
 	) {
-		boxes[3].classList.add('whenWon');
-		boxes[3].style.color = 'black';
-		boxes[4].classList.add('whenWon');
-		boxes[4].style.color = 'black';
-		boxes[5].classList.add('whenWon');
-		boxes[5].style.color = '#000001';
+		box4.classList.add('whenWon');
+		box4.style.color = '#000001';
+		box5.classList.add('whenWon');
+		box5.style.color = '#000001';
+		box6.classList.add('whenWon');
+		box6.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+
+		//winst onderste horizontale rij
 	} else if (
-		boxes[6].innerHTML === currentPlayer.token &&
-		boxes[7].innerHTML === currentPlayer.token &&
-		boxes[8].innerHTML === currentPlayer.token
+		box7.innerHTML === currentPlayer.token &&
+		box8.innerHTML === currentPlayer.token &&
+		box9.innerHTML === currentPlayer.token
 	) {
-		boxes[6].classList.add('whenWon');
-		boxes[6].style.color = 'black';
-		boxes[7].classList.add('whenWon');
-		boxes[7].style.color = 'black';
-		boxes[8].classList.add('whenWon');
-		boxes[8].style.color = '#000001';
+		box7.classList.add('whenWon');
+		box7.style.color = '#000001';
+		box8.classList.add('whenWon');
+		box8.style.color = '#000001';
+		box9.classList.add('whenWon');
+		box9.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+		//winst linkse verticale rij
 	} else if (
-		boxes[0].innerHTML === currentPlayer.token &&
-		boxes[3].innerHTML === currentPlayer.token &&
-		boxes[6].innerHTML === currentPlayer.token
+		box1.innerHTML === currentPlayer.token &&
+		box4.innerHTML === currentPlayer.token &&
+		box7.innerHTML === currentPlayer.token
 	) {
-		boxes[0].classList.add('whenWon');
-		boxes[0].style.color = 'black';
-		boxes[3].classList.add('whenWon');
-		boxes[3].style.color = 'black';
-		boxes[6].classList.add('whenWon');
-		boxes[6].style.color = '#000001';
+		box1.classList.add('whenWon');
+		box1.style.color = '#000001';
+		box4.classList.add('whenWon');
+		box4.style.color = '#000001';
+		box7.classList.add('whenWon');
+		box7.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+		//winst middelste verticale rij
 	} else if (
-		boxes[1].innerHTML === currentPlayer.token &&
-		boxes[4].innerHTML === currentPlayer.token &&
-		boxes[7].innerHTML === currentPlayer.token
+		box2.innerHTML === currentPlayer.token &&
+		box5.innerHTML === currentPlayer.token &&
+		box8.innerHTML === currentPlayer.token
 	) {
-		boxes[1].classList.add('whenWon');
-		boxes[1].style.color = 'black';
-		boxes[4].classList.add('whenWon');
-		boxes[4].style.color = 'black';
-		boxes[7].classList.add('whenWon');
-		boxes[7].style.color = '#000001';
+		box2.classList.add('whenWon');
+		box2.style.color = '#000001';
+		box5.classList.add('whenWon');
+		box5.style.color = '#000001';
+		box8.classList.add('whenWon');
+		box8.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+		//winst rechtse verticale rij
 	} else if (
-		boxes[2].innerHTML === currentPlayer.token &&
-		boxes[5].innerHTML === currentPlayer.token &&
-		boxes[8].innerHTML === currentPlayer.token
+		box3.innerHTML === currentPlayer.token &&
+		box6.innerHTML === currentPlayer.token &&
+		box9.innerHTML === currentPlayer.token
 	) {
-		boxes[2].classList.add('whenWon');
-		boxes[2].style.color = 'black';
-		boxes[5].classList.add('whenWon');
-		boxes[5].style.color = 'black';
-		boxes[8].classList.add('whenWon');
-		boxes[8].style.color = '#000001';
+		box3.classList.add('whenWon');
+		box3.style.color = '#000001';
+		box6.classList.add('whenWon');
+		box6.style.color = '#000001';
+		box9.classList.add('whenWon');
+		box9.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+		//winst diagonale rij vanaf links
 	} else if (
-		boxes[0].innerHTML === currentPlayer.token &&
-		boxes[4].innerHTML === currentPlayer.token &&
-		boxes[8].innerHTML === currentPlayer.token
+		box1.innerHTML === currentPlayer.token &&
+		box5.innerHTML === currentPlayer.token &&
+		box9.innerHTML === currentPlayer.token
 	) {
-		boxes[0].classList.add('whenWon');
-		boxes[0].style.color = 'black';
-		boxes[4].classList.add('whenWon');
-		boxes[4].style.color = 'black';
-		boxes[8].classList.add('whenWon');
-		boxes[8].style.color = '#000001';
+		box1.classList.add('whenWon');
+		box1.style.color = '#000001';
+		box5.classList.add('whenWon');
+		box5.style.color = '#000001';
+		box9.classList.add('whenWon');
+		box9.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
+		//winst diagonale rij vanaf rechts
 	} else if (
-		boxes[2].innerHTML === currentPlayer.token &&
-		boxes[4].innerHTML === currentPlayer.token &&
-		boxes[6].innerHTML === currentPlayer.token
+		box3.innerHTML === currentPlayer.token &&
+		box5.innerHTML === currentPlayer.token &&
+		box7.innerHTML === currentPlayer.token
 	) {
-		boxes[2].classList.add('whenWon');
-		boxes[2].style.color = 'black';
-		boxes[4].classList.add('whenWon');
-		boxes[4].style.color = 'black';
-		boxes[6].classList.add('whenWon');
-		boxes[6].style.color = '#000001';
+		box3.classList.add('whenWon');
+		box3.style.color = '#000001';
+		box5.classList.add('whenWon');
+		box5.style.color = '#000001';
+		box7.classList.add('whenWon');
+		box7.style.color = '#000001';
 		h2.innerHTML = `${currentPlayer.name} wins!`;
 		gameEnded = true;
 	}
