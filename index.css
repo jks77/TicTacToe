@@ -49,17 +49,16 @@ h2 {
 	grid-template-rows: repeat(3, 80px);
 	gap: 2px;
 	background-color: white;
-	border: 2px solid white;
+	/* border: 2px solid white; */
 }
 
 .box {
-	transition: all 200ms ease;
+	transition: all 100ms ease;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-size: 52px;
 	background-color: black;
-	text-transform: uppercase;
 }
 
 .start {
@@ -68,20 +67,11 @@ h2 {
 	background-color: white;
 }
 
-.black {
-	gap: 0;
-	grid-row-start: 4;
-	grid-column: 1 / span 3;
-	background-color: black;
-}
-
 button {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-weight: bold;
 	width: 248px;
 	margin-top: 40px;
-	grid-row-start: 5;
-	grid-column: 1 / span 3;
 	font-size: 48px;
 	color: white;
 	background-color: black;

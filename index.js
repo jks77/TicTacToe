@@ -51,10 +51,8 @@ function startGame() {
 
 	// zorgt voor verdwijnen van spelbord naar achtergrond en weer verschijnen
 	container.classList.add('rotate');
+
 	setTimeout(function() {
-		container.classList.remove('rotate');
-		h2.style.display = 'block';
-		btn.style.display = 'none';
 		for (let i = 0; i < boxes.length; i++) {
 			boxes[i].innerText = '';
 			boxes[i].classList.add('hover');
@@ -63,6 +61,12 @@ function startGame() {
 			boxes[i].classList.remove('when-won');
 		}
 	}, 1500);
+
+	setTimeout(function() {
+		container.classList.remove('rotate');
+		h2.style.display = 'block';
+		btn.style.display = 'none';
+	}, 2000);
 }
 
 // functie om op elke box een mouseenter event te zetten om de styling te beheersen
