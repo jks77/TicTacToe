@@ -22,12 +22,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	transition: all 1000ms ease-in-out;
-	/* transition-delay: 300ms; */
 	transform: rotateY(0deg);
-}
-
-.small {
-	transform: scale(.5);
 }
 
 h1,
@@ -49,7 +44,9 @@ h2 {
 	grid-template-rows: repeat(3, 80px);
 	gap: 2px;
 	background-color: white;
-	/* border: 2px solid white; */
+	/* optional: grid with border
+	border: 2px solid white; 
+	*/
 }
 
 .box {
@@ -81,7 +78,7 @@ button {
 	padding: 10px 0 10px;
 }
 
-.hover:hover,
+.if-hovered:hover,
 button:hover {
 	cursor: pointer;
 	color: black;
@@ -89,7 +86,7 @@ button:hover {
 	background-color: white;
 }
 
-.hover:hover {
+.if-hovered:hover {
 	color: black;
 }
 
@@ -102,9 +99,10 @@ button:hover {
 	pointer-events: none;
 }
 
-.when-won {
+.winning-line {
 	border: 2px solid black;
 	background-color: white;
+	color: #000001;
 }
 
 .rotate {

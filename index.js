@@ -1,27 +1,27 @@
-let h2 = document.querySelector('h2');
-let btn = document.querySelector('button');
-let container = document.querySelector('.container');
+const h2 = document.querySelector('h2');
+const btn = document.querySelector('button');
+const container = document.querySelector('.container');
 
-let boxes = document.getElementsByClassName('box');
+const boxes = document.getElementsByClassName('box');
 
-let box1 = boxes[0];
-let box2 = boxes[1];
-let box3 = boxes[2];
-let box4 = boxes[3];
-let box5 = boxes[4];
-let box6 = boxes[5];
-let box7 = boxes[6];
-let box8 = boxes[7];
-let box9 = boxes[8];
+const box1 = boxes[0];
+const box2 = boxes[1];
+const box3 = boxes[2];
+const box4 = boxes[3];
+const box5 = boxes[4];
+const box6 = boxes[5];
+const box7 = boxes[6];
+const box8 = boxes[7];
+const box9 = boxes[8];
 
 let currentPlayer;
 
-let playerOne = {
+const playerOne = {
 	token: 'X',
 	name: 'player one'
 };
 
-let playerTwo = {
+const playerTwo = {
 	token: 'O',
 	name: 'player two'
 };
@@ -29,7 +29,7 @@ let playerTwo = {
 let draw;
 let gameEnded = false;
 
-// einde variabelen, opmaak startscherm
+// ----- einde variabelen, opmaak startscherm ------------
 
 h2.style.display = 'none';
 
@@ -41,24 +41,27 @@ btn.addEventListener('click', function() {
 	startGame();
 });
 
-// functie om spel te (her)starten
+// ------- functie om spel te (her)starten ----------------
 
 function startGame() {
 	gameEnded = false;
+
+	// houdt bij hoe vaak gespeeld is voor checken of het een draw is
 	draw = 0;
+
 	currentPlayer = playerOne;
 	h2.innerText = currentPlayer.name;
 
-	// zorgt voor verdwijnen van spelbord naar achtergrond en weer verschijnen
+	// zorgt voor roteren van spelbord
 	container.classList.add('rotate');
 
+	//  setTimeOuts zijn voor effecten voor startklaar maken bord
 	setTimeout(function() {
 		for (let i = 0; i < boxes.length; i++) {
 			boxes[i].innerText = '';
-			boxes[i].classList.add('hover');
+			boxes[i].classList.add('if-hovered');
 			boxes[i].classList.remove('start');
-			boxes[i].classList.remove('no-hover');
-			boxes[i].classList.remove('when-won');
+			boxes[i].classList.remove('winning-line');
 		}
 	}, 1500);
 
@@ -67,6 +70,12 @@ function startGame() {
 		h2.style.display = 'block';
 		btn.style.display = 'none';
 	}, 2000);
+
+	setTimeout(function() {
+		for (let i = 0; i < boxes.length; i++) {
+			boxes[i].classList.remove('no-hover');
+		}
+	}, 3100);
 }
 
 // functie om op elke box een mouseenter event te zetten om de styling te beheersen
@@ -85,7 +94,7 @@ function checkBoxToken() {
 	}
 }
 
-makeClickEventToSetToken();
+makeMouseEnterEvent();
 
 // functie om op elke box een mouseleave event te zetten om de styling te beheersen
 function makeMouseLeaveEvent() {
@@ -104,10 +113,10 @@ function leaveBox() {
 
 makeMouseLeaveEvent();
 
-// functie om op elke box een click event te zetten om per speler zijn token te kunnen zetten
+// functie om op elke box een click event te zetten zodat speler zijn token kan zetten (voor oefenen een for of loop gebruikt)
 function makeClickEventToSetToken() {
-	for (let i = 0; i < boxes.length; i++) {
-		boxes[i].addEventListener('click', function() {
+	for (let box of boxes) {
+		box.addEventListener('click', function() {
 			setToken();
 		});
 	}
@@ -121,52 +130,53 @@ function setToken() {
 	draw++;
 
 	checkWinner();
+
+	// zolang spel niet geeindigd is
 	if (!gameEnded) {
 		element.style.color = 'white';
-		element.classList.remove('hover');
+		element.classList.remove('if-hovered');
 		element.classList.add('no-hover');
-		console.log(element.innerText);
-		console.log(currentPlayer.token);
 		currentPlayer === playerOne ? (currentPlayer = playerTwo) : (currentPlayer = playerOne);
 		h2.innerText = currentPlayer.name;
 	} else if (gameEnded) {
-		for (let i = 0; i < boxes.length; i++) {
-			boxes[i].classList.add('no-hover');
-		}
-		setTimeout(function() {
-			h2.style.display = 'none';
-			btn.innerText = 'AGAIN';
-			btn.style.display = 'block';
-		}, 2000);
+		// als spel geeindigd is door winnaar
+		displayAgainButton();
 	}
 
+	// als er geen winnaar is maar het bord vol
 	if (draw === 9 && !gameEnded) {
 		h2.innerText = 'DRAW!!';
-		for (let i = 0; i < boxes.length; i++) {
-			boxes[i].classList.add('no-hover');
-		}
-		setTimeout(function() {
-			h2.style.display = 'none';
-			btn.innerText = 'AGAIN';
-			btn.style.display = 'block';
-		}, 2000);
-		gameEnded = false;
+		displayAgainButton();
 	}
 }
 
-makeMouseEnterEvent();
+// om button met 'again' voo rnieuw spel te maken
+function displayAgainButton() {
+	for (let box of boxes) {
+		box.classList.add('no-hover');
+	}
+	setTimeout(function() {
+		h2.style.display = 'none';
+		btn.innerText = 'AGAIN';
+		btn.style.display = 'block';
+	}, 2000);
+	gameEnded = false;
+}
+
+makeClickEventToSetToken();
 
 function winningLine(firstBox, secondBox, thirdBox) {
-	firstBox.classList.add('when-won');
+	firstBox.classList.add('winning-line');
 	firstBox.style.color = '#000001';
-	secondBox.classList.add('when-won');
+	secondBox.classList.add('winning-line');
 	secondBox.style.color = '#000001';
-	thirdBox.classList.add('when-won');
-	// voor mij onverklaarbare bug: als op 'black' zet, dan verdwijnt currentPlayer.token. Daarom #000001 van gemaakt en bij rest ook
+	thirdBox.classList.add('winning-line');
+	// voor mij onverklaarbare bug: als op 'black' zet, dan verdwijnt soms currentPlayer.token bij einde spel. Daarom #000001 van gemaakt en bij rest ook
 	thirdBox.style.color = '#000001';
 	h2.innerText = `${currentPlayer.name} wins!`;
 	gameEnded = true;
 }
+
 function checkWinner() {
 	//winst bovenste horizontale rij
 	if (
