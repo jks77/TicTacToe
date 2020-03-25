@@ -140,7 +140,6 @@ function setToken() {
 		h2.innerText = currentPlayer.name;
 	} else if (gameEnded) {
 		// als spel geeindigd is door winnaar
-		// debugger;
 		displayAgainButton();
 	}
 
@@ -161,7 +160,6 @@ function displayAgainButton() {
 		btn.innerText = 'AGAIN';
 		btn.style.display = 'block';
 	}, 2000);
-	// gameEnded = false;
 }
 
 makeClickEventToSetToken();
